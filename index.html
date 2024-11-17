@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratan Tata Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #f59e0b;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+            --header-bg: #1e40af;
+            --footer-bg: #1e3a8a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .blog-posts {
+            flex: 2;
+        }
+
+        .sidebar {
+            flex: 1;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-date {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .card-excerpt {
+            font-size: 0.875rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f9fafb;
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+        }
+
+        .search-form {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.875rem;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .about-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #2563eb;
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin-bottom: 2rem;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #e5e7eb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-input {
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            background-color: #374151;
+            color: white;
+        }
+
+        .contact-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background-color: #d97706;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4b5563;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--header-bg);
+                padding: 1rem;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        #status-message {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .error {
+            background-color: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Ratan Tata Blog</a>
+                <nav>
+                    <button class="menu-toggle">☰</button>
+                    <ul>
+                        <li><a href="#" id="home-link">Home</a></li>
+                        <li><a href="#" id="about-link">About</a></li>
+                        <li><a href="#" id="articles-link">Articles</a></li>
+                        <li><a href="#contact-form">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="main-content">
+                <section class="blog-posts">
+                    <!-- Blog posts will be dynamically inserted here -->
+                </section>
+
+                <aside class="sidebar">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Search</h2>
+                        </div>
+                        <div class="card-content">
+                            <form class="search-form">
+                                <input type="text" class="search-input" placeholder="Search articles...">
+                                <button type="submit" class="search-btn">🔍</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">About Ratan Tata</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="about-section">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJ0C-80Z3_MWsawByoHFdZXJ0NChU0Wc9DA&s" alt="Ratan Tata" class="avatar">
+                                <div>
+                                    <h3 class="font-semibold">Ratan Naval Tata</h3>
+                                    <p class="text-sm text-gray-500">Indian Industrialist & Philanthropist</p>
+                                </div>
+                            </div>
+                            <p class="card-excerpt">
+                                Ratan Tata is the former chairman of Tata Sons and Tata Group. He is known for his business acumen,
+                                integrity, and philanthropic efforts.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Follow Us</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="social-buttons">
+                                <a href="#" class="social-btn">f</a>
+                                <a href="#" class="social-btn">t</a>
+                                <a href="#" class="social-btn">in</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">About Us</h3>
+                    <p>We are dedicated to sharing insights about Ratan Tata's life, achievements, and impact on Indian industry and society.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="footer-home-link">Home</a></li>
+                        <li><a href="#" id="footer-about-link">About</a></li>
+                        <li><a href="#" id="footer-articles-link">Articles</a></li>
+                        <li><a href="#contact-form">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <form id="contact-form" class="contact-form">
+                        <input type="text" placeholder="Your name" class="contact-input" required>
+                        <input type="email" placeholder="Your email" class="contact-input" required>
+                        <textarea placeholder="Your message" class="contact-input" rows="4" required></textarea>
+                        <button type="submit" class="contact-btn">Send Message</button>
+                    </form>
+                    <div id="status-message" class="mt-4 text-center"></div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Ratan Tata Blog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const blogPosts = [
+            {
+                title: "The Legacy of Ratan Tata: A Visionary Leader",
+                date: "October 14, 2024",
+                excerpt: "Explore the life and achievements of Ratan Naval Tata, one of India's most respected industrialists and philanthropists.",
+                image: "https://img.etimg.com/thumb/width-1600,height-900,imgsize-41602,resizemode-75,msid-114140750/news/company/corporate-trends/a-standing-ovation-for-ratan-tata.jpg"
+            },
+            {
+                title: "Ratan Tata's Global Vision: Transforming Tata Group",
+                date: "October 10, 2024",
+                excerpt: "How Ratan Tata led the Tata Group's international expansion and turned it into a global powerhouse.",
+                image:  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8WWRExKIDkm8yOO2IkSAx-e-rjVBBh2FUuw&s"
+            },
+            {
+                title: "The Philanthropic Journey of Ratan Tata",
+                date: "October 5, 2024",
+                excerpt: "Discover the extensive charitable work and social initiatives spearheaded by Ratan Tata.",
+                image:  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJ0C-80Z3_MWsawByoHFdZXJ0NChU0Wc9DA&s"
+            },
+            {
+                title: "Achievements: Transforming the Tata Group",
+                date: "September 30, 2024",
+                excerpt: "Ratan Tata's tenure as Chairman of Tata Sons is considered a golden era for the company. Under his leadership, Tata Group's revenue grew over 40 times, and its profits expanded by over 50 times.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8WWRExKIDkm8yOO2IkSAx-e-rjVBBh2FUuw&s"
+            }
+        ];
+
+        function createBlogPostCard(post) {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">${post.title}</h2>
+                        <p class="card-date">${post.date}</p>
+                    </div>
+                    <div class="card-content">
+                        <img src="${post.image}" alt="${post.title}" class="card-image">
+                        <p class="card-excerpt">${post.excerpt}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn read-more">Read More</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const blogPostsSection = document.querySelector('.blog-posts');
+            blogPosts.forEach(post => {
+                blogPostsSection.innerHTML += createBlogPostCard(post);
+            });
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('nav ul');
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+
+            // Read More button functionality
+            document.querySelectorAll('.read-more').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Full article content would be displayed here.');
+                });
+            });
+
+            // About link functionality
+            document.querySelectorAll('#about-link, #footer-about-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('About page content would be displayed here.');
+                });
+            });
+
+            // Articles link functionality
+            document.querySelectorAll('#articles-link, #footer-articles-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('All articles would be listed here.');
+                });
+            });
+
+            // Contact form submission
+            document.getElementById('contact-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = e.target.elements[0].value;
+                const email = e.target.elements[1].value;
+                const message = e.target.elements[2].value;
+
+                const submitButton = e.target.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+
+                try {
+                    const response = await fetch('http://localhost:3000/send-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, email, message }),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        const statusMessage = document.getElementById('status-message');
+                        statusMessage.textContent = `Thank you, ${name}! Your message has been sent successfully to yndbrani12@gmail.com. We will reply to you at ${email} soon.`;
+                        statusMessage.className = 'success';
+                        e.target.reset();
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    const statusMessage = document.getElementById('status-message');
+                    statusMessage.textContent = 'An error occurred while sending your message. Please try again later.';
+                    statusMessage.className = 'error';
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+
+                    setTimeout(() => {
+                        const statusMessage = document.getElementById('status-message');
+                        statusMessage.textContent = '';
+                        statusMessage.className = '';
+                    }, 5000);
+                }
+            });
+
+            function scrollToContact(e) {
+                e.preventDefault();
+                const contactForm = document.getElementById('contact-form');
+                contactForm.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Contact link functionality
+            document.querySelectorAll('a[href="#contact-form"]').forEach(link => {
+                link.addEventListener('click', scrollToContact);
+            });
+        });
+    </script>
+</body>
+</html>
